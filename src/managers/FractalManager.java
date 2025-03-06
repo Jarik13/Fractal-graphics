@@ -3,15 +3,14 @@ package managers;
 import java.awt.*;
 
 public class FractalManager {
-    private static final int ITERATIONS = 4;
     private static final int LINE_SIZE = 35;
 
     public void drawStartPoint(Graphics g, int x, int y) {
         g.fillOval(x - 4, y - 4, 8, 8);
     }
 
-    public void drawDragonFractal(Graphics g, int x, int y) {
-        drawDragonFractal(g, x, y, LINE_SIZE, ITERATIONS);
+    public void drawDragonFractal(Graphics g, int x, int y, int iterations) {
+        drawDragonFractal(g, x, y, LINE_SIZE, iterations);
     }
 
     private void drawDragonFractal(Graphics g, int x, int y, int size, int depth) {

@@ -10,6 +10,7 @@ public class FractalPanel extends JPanel {
     private Point2D.Double startPoint = null;
     private boolean drawFractal = false;
     private final FractalManager fractalManager;
+    private int iterations;
 
     public FractalPanel() {
         this.fractalManager = new FractalManager();
@@ -20,6 +21,10 @@ public class FractalPanel extends JPanel {
         startPoint = new Point2D.Double(x, y);
         drawFractal = false;
         repaint();
+    }
+
+    public void setIterations(int iterations) {
+        this.iterations = iterations;
     }
 
     public void drawDragonFractal() {
@@ -46,7 +51,7 @@ public class FractalPanel extends JPanel {
             fractalManager.drawStartPoint(g, x, y);
 
             if (drawFractal) {
-                fractalManager.drawDragonFractal(g, x, y);
+                fractalManager.drawDragonFractal(g, x, y, iterations);
             }
         }
     }

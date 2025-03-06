@@ -50,13 +50,24 @@ public class Main {
             fractalPanel.setStartPoint(centerX, centerY);
         });
 
-        clearPanel.addActionListener(e -> fractalPanel.clearPanel());
-        drawDragon.addActionListener(e -> fractalPanel.drawDragonFractal());
+        clearPanel.addActionListener(e -> {
+            fractalPanel.clearPanel();
+            iterationsField.setText("");
+        });
+
+        drawDragon.addActionListener(e -> {
+            try {
+                int iterations = Integer.parseInt(iterationsField.getText());
+                fractalPanel.setIterations(iterations);
+                fractalPanel.drawDragonFractal();
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Please enter a valid number of iterations.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            }
+        });
     }
 
     private static void initializeFractalPanel(JFrame frame) {
         fractalPanel = new FractalPanel();
-
         frame.add(fractalPanel, BorderLayout.CENTER);
     }
 }
