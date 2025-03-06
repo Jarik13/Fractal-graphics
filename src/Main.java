@@ -1,7 +1,11 @@
+import panels.FractalPanel;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class Main {
+    private static FractalPanel fractalPanel;
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("Fractal graphics!");
         frame.setLayout(new BorderLayout());
@@ -35,10 +39,16 @@ public class Main {
         inputPanel.add(drawDragon);
 
         frame.add(inputPanel, BorderLayout.NORTH);
+
+        addStartPoint.addActionListener(e -> {
+            int centerX = fractalPanel.getWidth() / 2;
+            int centerY = fractalPanel.getHeight() / 2;
+            fractalPanel.setStartPoint(centerX, centerY);
+        });
     }
 
     private static void initializeFractalPanel(JFrame frame) {
-        JPanel fractalPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        fractalPanel = new FractalPanel();
 
         frame.add(fractalPanel, BorderLayout.CENTER);
     }
