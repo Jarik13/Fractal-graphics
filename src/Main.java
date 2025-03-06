@@ -38,6 +38,13 @@ public class Main {
         JButton startColorButton = new JButton("Start Color");
         JButton endColorButton = new JButton("End Color");
 
+        JLabel cRealLabel = new JLabel("C real:");
+        JTextField cRealField = new JTextField(5);
+        JLabel cImageLabel = new JLabel("C image:");
+        JTextField cImageField = new JTextField(5);
+
+        JButton drawJulia = new JButton("Draw Julia fractal");
+
         inputPanel.add(addStartPoint);
         inputPanel.add(repaintFractal);
         inputPanel.add(lineSizeLabel);
@@ -48,6 +55,11 @@ public class Main {
         inputPanel.add(endColorButton);
         inputPanel.add(clearPanel);
         inputPanel.add(drawDragon);
+        inputPanel.add(cRealLabel);
+        inputPanel.add(cRealField);
+        inputPanel.add(cImageLabel);
+        inputPanel.add(cImageField);
+        inputPanel.add(drawJulia);
 
         frame.add(inputPanel, BorderLayout.NORTH);
 
@@ -63,7 +75,7 @@ public class Main {
             lineSizeField.setText("");
         });
 
-        repaintFractal.addActionListener(e -> {
+        drawDragon.addActionListener(e -> {
             try {
                 int iterations = Integer.parseInt(iterationsField.getText());
                 double lineSize = Double.parseDouble(lineSizeField.getText());
@@ -76,16 +88,17 @@ public class Main {
             }
         });
 
-        drawDragon.addActionListener(e -> {
+        drawJulia.addActionListener(e -> {
             try {
                 int iterations = Integer.parseInt(iterationsField.getText());
-                double lineSize = Double.parseDouble(lineSizeField.getText());
+                double cRe = Double.parseDouble(cRealField.getText());
+                double cIm = Double.parseDouble(cImageField.getText());
                 fractalPanel.setIterations(iterations);
-                fractalPanel.setLineSize(lineSize);
+                fractalPanel.setC(cRe, cIm);
                 fractalPanel.setGradientColors(startColor, endColor);
-                fractalPanel.drawDragonFractal();
+                fractalPanel.drawJuliaFractal();
             } catch (NumberFormatException ex) {
-                showInputError(frame, iterationsField, lineSizeField);
+
             }
         });
 

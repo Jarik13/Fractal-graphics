@@ -11,7 +11,8 @@ import java.awt.geom.Point2D;
 
 public class FractalPanel extends JPanel {
     private Point2D.Double startPoint = null;
-    private boolean drawFractal = false;
+    private boolean drawDragonFractal = false;
+    private boolean drawJuliaFractal = false;
     private final FractalManager fractalManager;
     private int iterations;
     private double lineSize;
@@ -21,6 +22,8 @@ public class FractalPanel extends JPanel {
     private double offsetY = 0;
     private Color startColor;
     private Color endColor;
+    private double cRe;
+    private double cIm;
 
     public FractalPanel() {
         this.fractalManager = new FractalManager();
@@ -66,7 +69,8 @@ public class FractalPanel extends JPanel {
 
     public void setStartPoint(double x, double y) {
         startPoint = new Point2D.Double(x, y);
-        drawFractal = false;
+        drawDragonFractal = false;
+        drawJuliaFractal = false;
         repaint();
     }
 
@@ -83,16 +87,29 @@ public class FractalPanel extends JPanel {
         this.endColor = end;
     }
 
+    public void setC(double cRe, double cIm) {
+        this.cRe = cRe;
+        this.cIm = cIm;
+    }
+
     public void drawDragonFractal() {
         if (startPoint != null) {
-            drawFractal = true;
+            drawDragonFractal = true;
+            repaint();
+        }
+    }
+
+    public void drawJuliaFractal() {
+        if (startPoint != null) {
+            drawJuliaFractal = true;
             repaint();
         }
     }
 
     public void clearPanel() {
         startPoint = null;
-        drawFractal = false;
+        drawDragonFractal = false;
+        drawJuliaFractal = false;
         repaint();
     }
 
@@ -117,8 +134,12 @@ public class FractalPanel extends JPanel {
             g.setColor(Color.BLUE);
             fractalManager.drawStartPoint(g, x, y);
 
-            if (drawFractal) {
+            if (drawDragonFractal) {
                 fractalManager.drawDragonFractal(g, x, y, lineSize * zoomFactor, iterations, startColor, endColor);
+            }
+
+            if (drawJuliaFractal) {
+                fractalManager.drawJuliaFractal(g, getWidth(), getHeight(), iterations, zoomFactor, cRe, cIm);
             }
 
             String zoomString = String.format("Zoom: %.0f%%", zoomFactor * 100);
