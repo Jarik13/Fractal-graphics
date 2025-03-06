@@ -3,8 +3,6 @@ package managers;
 import java.awt.*;
 
 public class FractalManager {
-    private static final int LINE_SIZE = 35;
-
     public void drawStartPoint(Graphics g, int x, int y) {
         g.fillOval(x - 4, y - 4, 8, 8);
     }

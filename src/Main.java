@@ -75,6 +75,7 @@ public class Main {
 
     private static void initializeFractalPanel(JFrame frame) {
         fractalPanel = new FractalPanel();
-        frame.add(fractalPanel, BorderLayout.CENTER);
+        JScrollPane scrollPane = FractalPanel.getScrollablePanel(fractalPanel);
+        frame.add(scrollPane, BorderLayout.CENTER);
     }
 }
