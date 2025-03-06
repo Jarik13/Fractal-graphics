@@ -7,7 +7,7 @@ public class FractalManager {
         g.fillOval(x - 4, y - 4, 8, 8);
     }
 
-    public void drawDragonFractal(Graphics g, int x, int y, double size, int depth) {
+    public void drawDragonFractal(Graphics g, int x, int y, double size, int depth, Color startColor, Color endColor) {
         String direction = "X";
         StringBuilder currentDirection = new StringBuilder(direction);
 
@@ -25,16 +25,13 @@ public class FractalManager {
             currentDirection = nextDirection;
         }
 
-        drawLine(g, x, y, size, currentDirection.toString());
+        drawLine(g, x, y, size, currentDirection.toString(), startColor, endColor);
     }
 
-    private void drawLine(Graphics g, int x, int y, double size, String direction) {
+    private void drawLine(Graphics g, int x, int y, double size, String direction, Color startColor, Color endColor) {
         int currentX = x;
         int currentY = y;
         int angle = 0;
-
-        Color startColor = new Color(255, 215, 0);
-        Color endColor = new Color(0, 128, 0);
 
         int totalSteps = (int) direction.chars().filter(ch -> ch == 'F').count();
         int step = 0;

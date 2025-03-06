@@ -19,6 +19,8 @@ public class FractalPanel extends JPanel {
     private Point lastMousePosition = null;
     private double offsetX = 0;
     private double offsetY = 0;
+    private Color startColor;
+    private Color endColor;
 
     public FractalPanel() {
         this.fractalManager = new FractalManager();
@@ -76,6 +78,11 @@ public class FractalPanel extends JPanel {
         this.lineSize = lineSize;
     }
 
+    public void setGradientColors(Color start, Color end) {
+        this.startColor = start;
+        this.endColor = end;
+    }
+
     public void drawDragonFractal() {
         if (startPoint != null) {
             drawFractal = true;
@@ -111,7 +118,7 @@ public class FractalPanel extends JPanel {
             fractalManager.drawStartPoint(g, x, y);
 
             if (drawFractal) {
-                fractalManager.drawDragonFractal(g, x, y, lineSize * zoomFactor, iterations);
+                fractalManager.drawDragonFractal(g, x, y, lineSize * zoomFactor, iterations, startColor, endColor);
             }
 
             String zoomString = String.format("Zoom: %.0f%%", zoomFactor * 100);

@@ -5,6 +5,8 @@ import java.awt.*;
 
 public class Main {
     private static FractalPanel fractalPanel;
+    private static Color startColor = new Color(255, 215, 0);
+    private static Color endColor = new Color(0, 128, 0);
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Fractal graphics!");
@@ -33,12 +35,17 @@ public class Main {
         JButton clearPanel = new JButton("Clear");
         JButton drawDragon = new JButton("Draw dragon fractal");
 
+        JButton startColorButton = new JButton("Start Color");
+        JButton endColorButton = new JButton("End Color");
+
         inputPanel.add(addStartPoint);
         inputPanel.add(repaintFractal);
         inputPanel.add(lineSizeLabel);
         inputPanel.add(lineSizeField);
         inputPanel.add(iterationsLabel);
         inputPanel.add(iterationsField);
+        inputPanel.add(startColorButton);
+        inputPanel.add(endColorButton);
         inputPanel.add(clearPanel);
         inputPanel.add(drawDragon);
 
@@ -62,13 +69,10 @@ public class Main {
                 double lineSize = Double.parseDouble(lineSizeField.getText());
                 fractalPanel.setIterations(iterations);
                 fractalPanel.setLineSize(lineSize);
+                fractalPanel.setGradientColors(startColor, endColor);
                 fractalPanel.drawDragonFractal();
             } catch (NumberFormatException ex) {
-                if (iterationsField.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(frame, "Please enter a valid number of iterations.", "Invalid Iterations Input", JOptionPane.ERROR_MESSAGE);
-                } else if (lineSizeField.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(frame, "Please enter a valid line size.", "Invalid Line Size Input", JOptionPane.ERROR_MESSAGE);
-                }
+                showInputError(frame, iterationsField, lineSizeField);
             }
         });
 
@@ -78,13 +82,24 @@ public class Main {
                 double lineSize = Double.parseDouble(lineSizeField.getText());
                 fractalPanel.setIterations(iterations);
                 fractalPanel.setLineSize(lineSize);
+                fractalPanel.setGradientColors(startColor, endColor);
                 fractalPanel.drawDragonFractal();
             } catch (NumberFormatException ex) {
-                if (iterationsField.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(frame, "Please enter a valid number of iterations.", "Invalid Iterations Input", JOptionPane.ERROR_MESSAGE);
-                } else if (lineSizeField.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(frame, "Please enter a valid line size.", "Invalid Line Size Input", JOptionPane.ERROR_MESSAGE);
-                }
+                showInputError(frame, iterationsField, lineSizeField);
+            }
+        });
+
+        startColorButton.addActionListener(e -> {
+            Color selectedColor = JColorChooser.showDialog(frame, "Choose Start Color", startColor);
+            if (selectedColor != null) {
+                startColor = selectedColor;
+            }
+        });
+
+        endColorButton.addActionListener(e -> {
+            Color selectedColor = JColorChooser.showDialog(frame, "Choose End Color", endColor);
+            if (selectedColor != null) {
+                endColor = selectedColor;
             }
         });
     }
@@ -93,5 +108,13 @@ public class Main {
         fractalPanel = new FractalPanel();
         JScrollPane scrollPane = FractalPanel.getScrollablePanel(fractalPanel);
         frame.add(scrollPane, BorderLayout.CENTER);
+    }
+
+    private static void showInputError(JFrame frame, JTextField iterationsField, JTextField lineSizeField) {
+        if (iterationsField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "Please enter a valid number of iterations.", "Invalid Iterations Input", JOptionPane.ERROR_MESSAGE);
+        } else if (lineSizeField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "Please enter a valid line size.", "Invalid Line Size Input", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
