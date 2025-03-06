@@ -8,6 +8,7 @@ import java.awt.geom.Point2D;
 
 public class FractalPanel extends JPanel {
     private Point2D.Double startPoint = null;
+    private boolean drawFractal = false;
     private final FractalManager fractalManager;
 
     public FractalPanel() {
@@ -17,7 +18,15 @@ public class FractalPanel extends JPanel {
 
     public void setStartPoint(double x, double y) {
         startPoint = new Point2D.Double(x, y);
+        drawFractal = false;
         repaint();
+    }
+
+    public void drawDragonFractal() {
+        if (startPoint != null) {
+            drawFractal = true;
+            repaint();
+        }
     }
 
     @Override
@@ -28,7 +37,11 @@ public class FractalPanel extends JPanel {
             g.setColor(Color.BLUE);
             int x = (int) Math.round(startPoint.x);
             int y = (int) Math.round(startPoint.y);
-            fractalManager.drawFractal(g, x, y);
+            fractalManager.drawStartPoint(g, x, y);
+
+            if (drawFractal) {
+                fractalManager.drawDragonFractal(g, x, y);
+            }
         }
     }
 }

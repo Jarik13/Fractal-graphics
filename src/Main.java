@@ -45,6 +45,8 @@ public class Main {
             int centerY = fractalPanel.getHeight() / 2;
             fractalPanel.setStartPoint(centerX, centerY);
         });
+
+        drawDragon.addActionListener(e -> fractalPanel.drawDragonFractal());
     }
 
     private static void initializeFractalPanel(JFrame frame) {
