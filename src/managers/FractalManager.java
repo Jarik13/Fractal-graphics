@@ -9,11 +9,7 @@ public class FractalManager {
         g.fillOval(x - 4, y - 4, 8, 8);
     }
 
-    public void drawDragonFractal(Graphics g, int x, int y, int iterations) {
-        drawDragonFractal(g, x, y, LINE_SIZE, iterations);
-    }
-
-    private void drawDragonFractal(Graphics g, int x, int y, int size, int depth) {
+    public void drawDragonFractal(Graphics g, int x, int y, double size, int depth) {
         String direction = "X";
         StringBuilder currentDirection = new StringBuilder(direction);
 
@@ -34,7 +30,7 @@ public class FractalManager {
         drawLine(g, x, y, size, currentDirection.toString());
     }
 
-    private void drawLine(Graphics g, int x, int y, int size, String direction) {
+    private void drawLine(Graphics g, int x, int y, double size, String direction) {
         int currentX = x;
         int currentY = y;
         int angle = 0;

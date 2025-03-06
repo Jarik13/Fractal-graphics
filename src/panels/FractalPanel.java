@@ -11,6 +11,7 @@ public class FractalPanel extends JPanel {
     private boolean drawFractal = false;
     private final FractalManager fractalManager;
     private int iterations;
+    private double lineSize;
 
     public FractalPanel() {
         this.fractalManager = new FractalManager();
@@ -25,6 +26,10 @@ public class FractalPanel extends JPanel {
 
     public void setIterations(int iterations) {
         this.iterations = iterations;
+    }
+
+    public void setLineSize(double lineSize) {
+        this.lineSize = lineSize;
     }
 
     public void drawDragonFractal() {
@@ -51,7 +56,7 @@ public class FractalPanel extends JPanel {
             fractalManager.drawStartPoint(g, x, y);
 
             if (drawFractal) {
-                fractalManager.drawDragonFractal(g, x, y, iterations);
+                fractalManager.drawDragonFractal(g, x, y, lineSize, iterations);
             }
         }
     }
