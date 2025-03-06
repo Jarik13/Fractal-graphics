@@ -82,6 +82,10 @@ public class FractalPanel extends JPanel {
             if (drawFractal) {
                 fractalManager.drawDragonFractal(g, x, y, lineSize * zoomFactor, iterations);
             }
+
+            String zoomString = String.format("Zoom: %.0f", zoomFactor * 100);
+            g.setColor(Color.BLACK);
+            g.drawString(zoomString, getWidth() - 100, 20);
         }
     }
 
