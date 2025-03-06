@@ -56,6 +56,22 @@ public class Main {
             lineSizeField.setText("");
         });
 
+        repaintFractal.addActionListener(e -> {
+            try {
+                int iterations = Integer.parseInt(iterationsField.getText());
+                double lineSize = Double.parseDouble(lineSizeField.getText());
+                fractalPanel.setIterations(iterations);
+                fractalPanel.setLineSize(lineSize);
+                fractalPanel.drawDragonFractal();
+            } catch (NumberFormatException ex) {
+                if (iterationsField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid number of iterations.", "Invalid Iterations Input", JOptionPane.ERROR_MESSAGE);
+                } else if (lineSizeField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid line size.", "Invalid Line Size Input", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
         drawDragon.addActionListener(e -> {
             try {
                 int iterations = Integer.parseInt(iterationsField.getText());
