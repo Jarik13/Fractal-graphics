@@ -33,19 +33,28 @@ public class FractalManager {
         int currentY = y;
         int angle = 0;
 
-        Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.ORANGE, Color.CYAN, Color.MAGENTA, Color.PINK, Color.YELLOW};
-        int colorIndex = 0;
+        Color startColor = new Color(255, 215, 0);
+        Color endColor = new Color(0, 128, 0);
+
+        int totalSteps = (int) direction.chars().filter(ch -> ch == 'F').count();
+        int step = 0;
 
         for (char c : direction.toCharArray()) {
             if (c == 'F') {
                 int newX = currentX + (int) (size * Math.cos(Math.toRadians(angle)));
                 int newY = currentY + (int) (size * Math.sin(Math.toRadians(angle)));
 
-                g.setColor(colors[colorIndex % colors.length]);
+                float ratio = (float) step / totalSteps;
+                int r = (int) (startColor.getRed() * (1 - ratio) + endColor.getRed() * ratio);
+                int gValue = (int) (startColor.getGreen() * (1 - ratio) + endColor.getGreen() * ratio);
+                int b = (int) (startColor.getBlue() * (1 - ratio) + endColor.getBlue() * ratio);
+                g.setColor(new Color(r, gValue, b));
+
                 g.drawLine(currentX, currentY, newX, newY);
 
                 currentX = newX;
                 currentY = newY;
+                step++;
             } else if (c == '+') {
                 angle += 90;
             } else if (c == '-') {
