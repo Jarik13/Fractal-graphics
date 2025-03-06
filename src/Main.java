@@ -27,7 +27,6 @@ public class Main {
         JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JButton addStartPoint = new JButton("Add start point");
-        JButton repaintFractal = new JButton("Repaint fractal");
         JLabel lineSizeLabel = new JLabel("Line size:");
         JTextField lineSizeField = new JTextField(5);
         JLabel iterationsLabel = new JLabel("Iterations:");
@@ -46,7 +45,6 @@ public class Main {
         JButton drawJulia = new JButton("Draw Julia fractal");
 
         inputPanel.add(addStartPoint);
-        inputPanel.add(repaintFractal);
         inputPanel.add(lineSizeLabel);
         inputPanel.add(lineSizeField);
         inputPanel.add(iterationsLabel);
@@ -73,6 +71,8 @@ public class Main {
             fractalPanel.clearPanel();
             iterationsField.setText("");
             lineSizeField.setText("");
+            cRealField.setText("");
+            cImageField.setText("");
         });
 
         drawDragon.addActionListener(e -> {
@@ -98,7 +98,13 @@ public class Main {
                 fractalPanel.setGradientColors(startColor, endColor);
                 fractalPanel.drawJuliaFractal();
             } catch (NumberFormatException ex) {
-
+                if (cRealField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid number of real part of c.", "Invalid Real Part C", JOptionPane.ERROR_MESSAGE);
+                } else if (cImageField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid number of image part of c.", "Invalid Image Part C", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid number of iterations.", "Invalid Iterations Input", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 

@@ -139,7 +139,7 @@ public class FractalPanel extends JPanel {
             }
 
             if (drawJuliaFractal) {
-                fractalManager.drawJuliaFractal(g, getWidth(), getHeight(), iterations, zoomFactor, cRe, cIm);
+                fractalManager.drawJuliaFractal(g, getWidth(), getHeight(), iterations, zoomFactor, cRe, cIm, startColor, endColor);
             }
 
             String zoomString = String.format("Zoom: %.0f%%", zoomFactor * 100);

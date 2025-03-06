@@ -28,7 +28,7 @@ public class FractalManager {
         drawLine(g, x, y, size, currentDirection.toString(), startColor, endColor);
     }
 
-    public void drawJuliaFractal(Graphics g, int width, int height, int maxIteration, double zoom, double cRe, double cIm) {
+    public void drawJuliaFractal(Graphics g, int width, int height, int maxIteration, double zoom, double cRe, double cIm, Color startColor, Color endColor) {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 double zx = 1.5 * (x - (double) width / 2) / (0.5 * zoom * width);
@@ -41,8 +41,14 @@ public class FractalManager {
                     zx = temp;
                     iteration++;
                 }
-                int color = iteration | (iteration << 8);
-                g.setColor(new Color(color));
+
+                float ratio = (float) iteration / maxIteration;
+
+                int r = (int) (startColor.getRed() * (1 - ratio) + endColor.getRed() * ratio);
+                int gValue = (int) (startColor.getGreen() * (1 - ratio) + endColor.getGreen() * ratio);
+                int b = (int) (startColor.getBlue() * (1 - ratio) + endColor.getBlue() * ratio);
+
+                g.setColor(new Color(r, gValue, b));
                 g.drawRect(x, y, 1, 1);
             }
         }
