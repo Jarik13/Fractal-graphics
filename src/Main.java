@@ -4,6 +4,7 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Fractal graphics!");
+        frame.setLayout(new BorderLayout());
         initializeUI(frame);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -13,6 +14,7 @@ public class Main {
 
     private static void initializeUI(JFrame frame) {
         initializeInputPanel(frame);
+        initializeFractalPanel(frame);
     }
 
     private static void initializeInputPanel(JFrame frame) {
@@ -32,6 +34,12 @@ public class Main {
         inputPanel.add(clearPanel);
         inputPanel.add(drawDragon);
 
-        frame.add(inputPanel);
+        frame.add(inputPanel, BorderLayout.NORTH);
+    }
+
+    private static void initializeFractalPanel(JFrame frame) {
+        JPanel fractalPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        frame.add(fractalPanel, BorderLayout.CENTER);
     }
 }
