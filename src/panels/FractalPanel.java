@@ -5,6 +5,7 @@ import managers.FractalManager;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.geom.Point2D;
 
@@ -15,6 +16,7 @@ public class FractalPanel extends JPanel {
     private int iterations;
     private double lineSize;
     private double zoomFactor = 1.0;
+    private Point lastMousePosition = null;
 
     public FractalPanel() {
         this.fractalManager = new FractalManager();
@@ -27,6 +29,33 @@ public class FractalPanel extends JPanel {
                     zoomIn();
                 } else {
                     zoomOut();
+                }
+            }
+        });
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (startPoint != null && startPoint.distance(e.getPoint()) < 10) {
+                    lastMousePosition = e.getPoint();
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                lastMousePosition = null;
+            }
+        });
+
+        addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (lastMousePosition != null) {
+                    double deltaX = e.getX() - lastMousePosition.getX();
+                    double deltaY = e.getY() - lastMousePosition.getY();
+                    startPoint.setLocation(startPoint.getX() + deltaX, startPoint.getY() + deltaY);
+                    lastMousePosition = e.getPoint();
+                    repaint();
                 }
             }
         });
@@ -83,7 +112,7 @@ public class FractalPanel extends JPanel {
                 fractalManager.drawDragonFractal(g, x, y, lineSize * zoomFactor, iterations);
             }
 
-            String zoomString = String.format("Zoom: %.0f", zoomFactor * 100);
+            String zoomString = String.format("Zoom: %.0f%%", zoomFactor * 100);
             g.setColor(Color.BLACK);
             g.drawString(zoomString, getWidth() - 100, 20);
         }
