@@ -17,6 +17,8 @@ public class FractalPanel extends JPanel {
     private double lineSize;
     private double zoomFactor = 1.0;
     private Point lastMousePosition = null;
+    private double offsetX = 0;
+    private double offsetY = 0;
 
     public FractalPanel() {
         this.fractalManager = new FractalManager();
@@ -36,9 +38,7 @@ public class FractalPanel extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if (startPoint != null && startPoint.distance(e.getPoint()) < 10) {
-                    lastMousePosition = e.getPoint();
-                }
+                lastMousePosition = e.getPoint();
             }
 
             @Override
@@ -53,7 +53,8 @@ public class FractalPanel extends JPanel {
                 if (lastMousePosition != null) {
                     double deltaX = e.getX() - lastMousePosition.getX();
                     double deltaY = e.getY() - lastMousePosition.getY();
-                    startPoint.setLocation(startPoint.getX() + deltaX, startPoint.getY() + deltaY);
+                    offsetX += deltaX;
+                    offsetY += deltaY;
                     lastMousePosition = e.getPoint();
                     repaint();
                 }
@@ -103,9 +104,10 @@ public class FractalPanel extends JPanel {
         super.paintComponent(g);
 
         if (startPoint != null) {
+            int x = (int) Math.round(startPoint.x + offsetX);
+            int y = (int) Math.round(startPoint.y + offsetY);
+
             g.setColor(Color.BLUE);
-            int x = (int) Math.round(startPoint.x);
-            int y = (int) Math.round(startPoint.y);
             fractalManager.drawStartPoint(g, x, y);
 
             if (drawFractal) {
