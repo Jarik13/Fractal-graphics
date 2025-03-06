@@ -29,6 +29,12 @@ public class FractalPanel extends JPanel {
         }
     }
 
+    public void clearPanel() {
+        startPoint = null;
+        drawFractal = false;
+        repaint();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

@@ -46,6 +46,7 @@ public class Main {
             fractalPanel.setStartPoint(centerX, centerY);
         });
 
+        clearPanel.addActionListener(e -> fractalPanel.clearPanel());
         drawDragon.addActionListener(e -> fractalPanel.drawDragonFractal());
     }
 
