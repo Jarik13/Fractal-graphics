@@ -28,6 +28,8 @@ public class Main {
         JButton repaintFractal = new JButton("Repaint fractal");
         JLabel lineSizeLabel = new JLabel("Line size:");
         JTextField lineSizeField = new JTextField(5);
+        JLabel iterationsLabel = new JLabel("Iterations:");
+        JTextField iterationsField = new JTextField(5);
         JButton clearPanel = new JButton("Clear");
         JButton drawDragon = new JButton("Draw dragon fractal");
 
@@ -35,6 +37,8 @@ public class Main {
         inputPanel.add(repaintFractal);
         inputPanel.add(lineSizeLabel);
         inputPanel.add(lineSizeField);
+        inputPanel.add(iterationsLabel);
+        inputPanel.add(iterationsField);
         inputPanel.add(clearPanel);
         inputPanel.add(drawDragon);
 
