@@ -44,6 +44,9 @@ public class Main {
 
         JButton drawJulia = new JButton("Draw Julia fractal");
 
+        JButton saveImageButton = new JButton("Save Image");
+
+
         inputPanel.add(addStartPoint);
         inputPanel.add(lineSizeLabel);
         inputPanel.add(lineSizeField);
@@ -58,6 +61,7 @@ public class Main {
         inputPanel.add(cImageLabel);
         inputPanel.add(cImageField);
         inputPanel.add(drawJulia);
+        inputPanel.add(saveImageButton);
 
         frame.add(inputPanel, BorderLayout.NORTH);
 
