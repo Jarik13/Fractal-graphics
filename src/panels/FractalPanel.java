@@ -2,12 +2,16 @@ package panels;
 
 import managers.FractalManager;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class FractalPanel extends JPanel {
     private Point2D.Double startPoint = null;
@@ -127,6 +131,20 @@ public class FractalPanel extends JPanel {
     private void zoomOut() {
         zoomFactor /= 1.1;
         repaint();
+    }
+
+    public void saveFractalImage(String filePath) {
+        BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = image.createGraphics();
+        paint(g2d);
+        g2d.dispose();
+
+        try {
+            ImageIO.write(image, "png", new File(filePath));
+            JOptionPane.showMessageDialog(this, "Fractal saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error saving fractal image.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @Override
