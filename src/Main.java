@@ -77,6 +77,7 @@ public class Main {
 
         drawDragon.addActionListener(e -> {
             try {
+                fractalPanel.clearOnlyPanel();
                 int iterations = Integer.parseInt(iterationsField.getText());
                 double lineSize = Double.parseDouble(lineSizeField.getText());
                 fractalPanel.setIterations(iterations);
@@ -90,6 +91,7 @@ public class Main {
 
         drawJulia.addActionListener(e -> {
             try {
+                fractalPanel.clearOnlyPanel();
                 int iterations = Integer.parseInt(iterationsField.getText());
                 double cRe = Double.parseDouble(cRealField.getText());
                 double cIm = Double.parseDouble(cImageField.getText());
