@@ -1,6 +1,7 @@
 import panels.FractalPanel;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 
 public class Main {
@@ -45,7 +46,6 @@ public class Main {
         JButton drawJulia = new JButton("Draw Julia fractal");
 
         JButton saveImageButton = new JButton("Save Image");
-
 
         inputPanel.add(addStartPoint);
         inputPanel.add(lineSizeLabel);
@@ -125,6 +125,21 @@ public class Main {
             Color selectedColor = JColorChooser.showDialog(frame, "Choose End Color", endColor);
             if (selectedColor != null) {
                 endColor = selectedColor;
+            }
+        });
+
+        saveImageButton.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Save Fractal Image");
+            fileChooser.setFileFilter(new FileNameExtensionFilter("PNG Images", "png"));
+
+            int userSelection = fileChooser.showSaveDialog(frame);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+                if (!filePath.toLowerCase().endsWith(".png")) {
+                    filePath += ".png";
+                }
+                fractalPanel.saveFractalImage(filePath);
             }
         });
     }
