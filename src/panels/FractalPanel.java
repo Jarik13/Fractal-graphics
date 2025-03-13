@@ -113,6 +113,12 @@ public class FractalPanel extends JPanel {
         repaint();
     }
 
+    public void clearOnlyPanel() {
+        drawDragonFractal = false;
+        drawJuliaFractal = false;
+        repaint();
+    }
+
     private void zoomIn() {
         zoomFactor *= 1.1;
         repaint();
